@@ -10,9 +10,9 @@ setup(
     packages=find_packages(),
     long_description="A data review library",
     python_requires=">=3.8",
-    install_requires=[
-    ],
-    classifiers=[
-    ],
+    install_requires=["requests"],
+    classifiers=[],
+    extras_require={
+        "dev": ["black", "isort", "flake8", "mypy"],
+    },
 )
-
