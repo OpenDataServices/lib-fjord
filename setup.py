@@ -13,6 +13,13 @@ setup(
     install_requires=["requests"],
     classifiers=[],
     extras_require={
-        "dev": ["black", "isort", "flake8", "mypy"],
+        "dev": [
+            "black",
+            "isort",
+            "flake8",
+            "mypy",
+            "sphinx",
+            "odsc-default-sphinx-theme",
+        ],
     },
 )
