@@ -12,6 +12,18 @@ LANGUAGE_RE = re.compile(
 )
 
 
+def resolve_ref(value, defs, registry=None):
+    if value["$ref"].startswith("urn:"):
+        subschema = registry.contents(value["$ref"].split("#")[0])
+        if "#/$defs/" in value["$ref"]:
+            name = value["$ref"].split("$defs/")[-1]
+            defs = subschema["$defs"]
+            subschema = defs[name]
+        return subschema
+    elif value["$ref"].startswith("#/$defs/"):
+        name = value["$ref"].split("$defs/")[-1]
+        return defs[name]
+
 def process_items(schema_dict, registry=None, defs=None):
     items_schema_dicts = []
     if "oneOf" in schema_dict["items"] and isinstance(
@@ -79,6 +91,12 @@ def schema_dict_fields_generator(schema_dict, registry=None, defs=None):
                         property_schema_dict["items"], registry=registry, defs=defs
                     ):
                         yield f"/{property_name}{field}"
+                elif "$ref" in property_schema_dict:
+                     item_schema_dict = resolve_ref(property_schema_dict, defs, registry=registry)
+                     for field in schema_dict_fields_generator(
+                            item_schema_dict, registry=registry, defs=defs
+                     ):
+                         yield f"/{property_name}{field}"
                 yield f"/{property_name}"
     if "allOf" in schema_dict and isinstance(schema_dict["allOf"], list):
         for clause in schema_dict["allOf"]:
