@@ -14,6 +14,7 @@ setup(
     classifiers=[],
     extras_require={
         "dev": [
+            "pytest",
             "black",
             "isort",
             "flake8",
