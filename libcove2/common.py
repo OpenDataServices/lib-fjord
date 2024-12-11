@@ -205,7 +205,7 @@ def fields_present_generator(json_data, prefix=""):
                 yield from fields_present_generator(item, prefix)
 
 
-def org_id_file_fresh(org_id_file_contents, check_date):
+def _org_id_file_fresh(org_id_file_contents, check_date):
     """Unless the file was downloaded on greater than or equal to 'check_date'
     it is considered stale."""
     org_id_file_date_downloaded_date = datetime.datetime.strptime(
@@ -232,7 +232,7 @@ def get_orgids_prefixes(orgids_url=None):
     except FileNotFoundError:
         pass
 
-    if org_id_file_contents is None or not org_id_file_fresh(
+    if org_id_file_contents is None or not _org_id_file_fresh(
         org_id_file_contents, today
     ):
         # Refresh the file
