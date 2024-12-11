@@ -54,18 +54,20 @@ def schema_dict_fields_generator(schema_dict, registry=None, defs=None):
     """
     Iterate over fields in the input schema (with recursion):
 
-            Parameters:
-                    schema_dict (dict): Current input schema or subset thereof.
-                    registry (int, optional): Registry object from referencing package.
-                            See https://referencing.readthedocs.io/ for details.
-                            Contains all schema files that might be referenced.
-                            Currently only urn: references are supported.
-                    defs (dict, optional): Contents of "$defs" schema property.
-                            This will usually only be used internally when function is
-                            calling itself.
+    Parameters:
 
-            Yields:
-                    str: Contains path of field
+    * schema_dict (dict): Current input schema or subset thereof.
+    * registry (int, optional): Registry object from referencing package.
+                    See https://referencing.readthedocs.io/ for details.
+                    Contains all schema files that might be referenced.
+                    Currently only urn: references are supported.
+    * defs (dict, optional): Contents of "$defs" schema property.
+                    This will usually only be used internally when function is
+                    calling itself.
+
+    Yields:
+
+    * str: Contains path of field
     """
     if "$defs" in schema_dict:
         defs = schema_dict["$defs"]
@@ -141,6 +143,8 @@ def schema_dict_fields_generator(schema_dict, registry=None, defs=None):
 
 
 def get_additional_fields_info(json_data, schema_fields, fields_regex=False):
+    """Returns information on any additional fields that are
+    in the passed data but which are NOT defined in the schema."""
     fields_present = get_fields_present_with_examples(json_data)
 
     additional_fields = {}
@@ -172,6 +176,8 @@ def get_additional_fields_info(json_data, schema_fields, fields_regex=False):
 
 
 def get_fields_present_with_examples(*args, **kwargs):
+    """Returns list of fields present in some data,
+    with a count of how many times they exist and some examples of their values."""
     counter = {}
     for key, value in fields_present_generator(*args, **kwargs):
         if key not in counter:
@@ -186,6 +192,7 @@ def get_fields_present_with_examples(*args, **kwargs):
 
 
 def fields_present_generator(json_data, prefix=""):
+    """Returns list of fields present in some data."""
     if isinstance(json_data, dict):
         for key, value in json_data.items():
             new_key = f"{prefix}/{key}"
@@ -198,7 +205,7 @@ def fields_present_generator(json_data, prefix=""):
                 yield from fields_present_generator(item, prefix)
 
 
-def org_id_file_fresh(org_id_file_contents, check_date):
+def _org_id_file_fresh(org_id_file_contents, check_date):
     """Unless the file was downloaded on greater than or equal to 'check_date'
     it is considered stale."""
     org_id_file_date_downloaded_date = datetime.datetime.strptime(
@@ -225,7 +232,7 @@ def get_orgids_prefixes(orgids_url=None):
     except FileNotFoundError:
         pass
 
-    if org_id_file_contents is None or not org_id_file_fresh(
+    if org_id_file_contents is None or not _org_id_file_fresh(
         org_id_file_contents, today
     ):
         # Refresh the file

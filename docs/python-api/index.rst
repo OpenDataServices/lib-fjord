@@ -11,6 +11,5 @@ It does not document Python that is not intended for reuse by others (you can re
 
    org-ids.rst
    additional_fields.rst
-
-TODO schema_dict_fields_generator
-
+   schema_dict_fields_generator.rst
+   fields_present.rst
