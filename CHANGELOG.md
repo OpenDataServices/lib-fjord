@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.2.0] - 2024-12-13
+
 ### Changed
 
 - Improved handling of jsonschema: Handle urn references and allOf conditional in schema_dict_fields_generator
