@@ -27,12 +27,7 @@ def _resolve_ref(value, defs, registry=None):
 
 def _process_items(schema_dict, registry=None, defs=None):
     items_schema_dicts = []
-    if "oneOf" in schema_dict["items"] and isinstance(
-        schema_dict["items"]["oneOf"], list
-    ):
-        for oneOf in schema_dict["items"]["oneOf"]:
-            items_schema_dicts.append(oneOf)
-    elif "$ref" in schema_dict["items"]:
+    if "$ref" in schema_dict["items"]:
         if schema_dict["items"]["$ref"].startswith("urn:"):
             subschema = registry.contents(schema_dict["items"]["$ref"].split("#")[0])
             if "#/$defs/" in schema_dict["items"]["$ref"]:
@@ -43,10 +38,16 @@ def _process_items(schema_dict, registry=None, defs=None):
         elif schema_dict["items"]["$ref"].startswith("#/$defs/"):
             name = schema_dict["items"]["$ref"].split("$defs/")[-1]
             items_schema_dicts.append(defs[name])
-    elif "properties" in schema_dict["items"] and isinstance(
-        schema_dict["items"]["properties"], dict
-    ):
-        items_schema_dicts.append(schema_dict["items"])
+    else:
+        if "properties" in schema_dict["items"] and isinstance(
+            schema_dict["items"]["properties"], dict
+        ):
+            items_schema_dicts.append(schema_dict["items"])
+        if "oneOf" in schema_dict["items"] and isinstance(
+            schema_dict["items"]["oneOf"], list
+        ):
+            for oneOf in schema_dict["items"]["oneOf"]:
+                items_schema_dicts.append(oneOf)
     return items_schema_dicts
 
 
