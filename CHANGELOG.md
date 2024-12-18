@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- In _process_items handle use of properties and oneOf simultaneously in items
+
+### Added
+
+- Tests for more schemas
+
 ## [0.2.0] - 2024-12-13
 
 ### Changed
