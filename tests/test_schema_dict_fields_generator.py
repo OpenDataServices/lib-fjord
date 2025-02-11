@@ -2,7 +2,7 @@ import json
 
 import pytest
 
-from libcove2.common import schema_dict_fields_generator
+from libfjord.common import schema_dict_fields_generator
 
 
 @pytest.fixture

@@ -1,4 +1,4 @@
-from libcove2.common import get_orgids_prefixes
+from libfjord.common import get_orgids_prefixes
 
 
 # Note: This test will fail if no internet access or if org-id server is down

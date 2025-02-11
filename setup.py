@@ -1,7 +1,7 @@
 from setuptools import find_packages, setup
 
 setup(
-    name="libcove2",
+    name="libfjord",
     version="0.2.1",
     author="Open Data Services",
     author_email="code@opendataservices.coop",

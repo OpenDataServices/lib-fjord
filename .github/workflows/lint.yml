@@ -12,7 +12,7 @@ jobs:
         python-version: 3.9
         architecture: x64
     - run: pip install -e .[dev]
-    - run: isort --check-only libcove2 setup.py
-    - run: black --check libcove2 setup.py
-    - run: flake8 libcove2 setup.py
-    - run: mypy --install-types --non-interactive -p libcove2
+    - run: isort --check-only libfjord setup.py
+    - run: black --check libfjord setup.py
+    - run: flake8 libfjord setup.py
+    - run: mypy --install-types --non-interactive -p libfjord

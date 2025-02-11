@@ -1,4 +1,4 @@
-project = "LibCove2"
+project = "LibFjord"
 
 master_doc = "index"
 
