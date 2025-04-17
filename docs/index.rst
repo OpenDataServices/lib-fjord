@@ -1,4 +1,4 @@
-LibFJord
+LibFjord
 ========
 
 This library ultimately supports CoVE web applications, among others.
