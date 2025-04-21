@@ -11,7 +11,9 @@ setup(
     long_description="A data review library",
     python_requires=">=3.8",
     install_requires=["requests"],
-    classifiers=[],
+    classifiers=[
+        "License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)"
+    ],
     extras_require={
         "dev": [
             "pytest",
